@@ -1,4 +1,4 @@
-import { movieApi } from "api";
+import { tvApi, movieApi } from "api";
 import React from "react";
 import DetailPresenter from "./DetailPresenter";
 
@@ -31,11 +31,9 @@ export default class extends React.Component {
     let result = null;
     try {
       if (isMovie) {
-        const request = await movieApi.movieDetail(parseId);
-        result = request.data;
+        ({ data: result } = await movieApi.movieDetail(parseId));
       } else {
-        const request = await tvApi.showDetail(parseId);
-        result = request.data;
+        ({ data: result } = await tvApi.showDetail(parseId));
       }
     } catch {
       this.setState({ error: "해당 데이터를 찾을 수 없습니다." });
